@@ -38,4 +38,4 @@ def quadratic(a:int, b:int, c:int) ->str:
 
 
 
-print(quadratic(1,-7,-10))
+print(quadratic(5,6,1))

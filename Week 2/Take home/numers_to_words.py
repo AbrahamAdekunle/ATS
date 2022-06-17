@@ -381,4 +381,8 @@ def numbers_to_words(name:str)-> str:
     return "".join(words).title()
 
 
-print(numbers_to_words("1000"))
+print(numbers_to_words("105"))
+
+
+def balance():
+    print('your balance would be sent to your e_mail and your registered mobile number')

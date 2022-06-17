@@ -11,9 +11,9 @@ def quadratic(a:int, b:int, c:int) ->str:
             if item != 0 and product % item == 0:
                 fact_list.append(item)
     else:
-        print("product can't be zero, hence this is not a quadratic equation")
+        return "product can't be zero, hence this is not a quadratic equation"
 
-    # print(fact_list)
+    print(fact_list)
 
 
     for item_1 in fact_list:
@@ -22,7 +22,7 @@ def quadratic(a:int, b:int, c:int) ->str:
                 sum_of_factor.append(item_1)
                 # break
                 # sum_of_factor.append(item_2)
-    # print(sum_of_factor)
+    print(sum_of_factor)
 
     if a == 1 and len(sum_of_factor) == 1:
         return f"X1 = {-(sum_of_factor[0])}, and X2 ={-(sum_of_factor[0])}"
@@ -38,4 +38,4 @@ def quadratic(a:int, b:int, c:int) ->str:
 
 
 
-print(quadratic(5,6,1))
+print(quadratic(0,5,6))

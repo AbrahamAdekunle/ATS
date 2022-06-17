@@ -16,7 +16,7 @@ def form_sent(x:list,y:list,z:list) -> str:
         print(random.choice(x) +" "+ random.choice(y) +' '+ random.choice(z))
         i = i + 1
 
-# print(form_sent(list_subject,list_verb,list_object))
+print(form_sent(list_subject,list_verb,list_object))
 
 
 

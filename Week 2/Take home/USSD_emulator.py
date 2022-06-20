@@ -7,8 +7,6 @@ password_uc = string.ascii_uppercase
 password_digits = string.digits
 password_symbol = string.punctuation
 
-pin = 1234
-
 ussd_dict = {
     "*901#": "Access bank",
     '*326#': "EcoBank",
@@ -61,7 +59,7 @@ def transaction_progressing():
 
 
 def get_balance():
-    return 'your balance would be sent to your e_mail and your registered mobile number'
+    return 'your balance would be sent to your e-mail and your registered mobile number'
 
 
 def transfer():
@@ -118,7 +116,7 @@ def airtime():
                             else:
                                 return 'incorrect pin'
                         else:
-                            print(f'invalid phone number, kindly check the number.....you have {a-1} tries left')
+                            print(f'invalid phone number, kindly check the number.....you have {a - 1} tries left')
                             continue
                     sys.exit()
                 else:
@@ -145,11 +143,11 @@ def data():
             for y in range(3, 0, -1):
                 numero = int(input('how much data would you like to load'))
                 if numero <= 20000:
-                        insert_pin = int(input("kindly insert your pin"))
-                        if pin == insert_pin:
-                            return "Transaction successful"
-                        else:
-                            return 'incorrect pin'
+                    insert_pin = int(input("kindly insert your pin"))
+                    if pin == insert_pin:
+                        return "Transaction successful"
+                    else:
+                        return 'incorrect pin'
                 else:
                     print("the amount is greater than 20000, kindly reduce it.....you have{(y)-1} tries left")
                     continue
@@ -168,7 +166,7 @@ def data():
                             else:
                                 return 'incorrect pin'
                         else:
-                            print(f'invalid phone number, kindly check the number.....you have {a-1} tries left')
+                            print(f'invalid phone number, kindly check the number.....you have {a - 1} tries left')
                             continue
                     sys.exit()
         else:
@@ -207,7 +205,20 @@ for x in range(3, 0, -1):
         ussd_p_input = int(input())
 
         if ussd_p_input == 1:
-            print(transaction_progressing())
+            for q in range(3, 0, -1):
+                print("You need to set a pin")
+                pin_1 = str(input())
+                if len(pin_1) == 4 and pin_1.isdecimal():
+                    print('you have set a 4-digit, make sure to keep it secure and dont tell anyone, ')
+                    pin = int(pin_1)
+                    print(transaction_progressing())
+                    sys.exit()
+                else:
+                    print("wrong format....your pin has to be 4_digits")
+                    print(f'you have {q-1} tries left ')
+            print('You no dey hear word....oya commot for here')
+            sys.exit()
+
 
         else:
             print('Thank you')
@@ -216,4 +227,6 @@ for x in range(3, 0, -1):
     else:
         print(f"incorrect USSD, kindly re-check....you have {x - 1} tries left")
         continue
+print('You no dey hear word....oya commot for here')
 sys.exit()
+

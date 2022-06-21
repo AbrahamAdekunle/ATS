@@ -44,7 +44,7 @@ def number_2_words(numero: int) -> str:
     elif 20 < numero <= 99:
         return f" {numero_dict[tens]}  - {numero_dict[unit]}"
 
-    elif 100< numero <=999 and numero % 10 == 0:
+    elif 100 < numero <=999 and numero % 10 == 0:
         return f" {numero_dict[hundred]} hundred"
 
     elif 100 < numero <= 999:

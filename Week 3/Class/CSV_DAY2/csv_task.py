@@ -1,4 +1,5 @@
 import csv
+import time
 
 for x in range(0, 3):
     f_name = input("what is your first name ? \n")
@@ -62,9 +63,30 @@ with open("census.csv", 'w') as x:
         'email': email
     })
 
-
 with open("census.csv", "r") as q:
     hand = csv.DictReader(q)
 
     for rows in hand:
-        print (rows)
+        print()
+
+
+def search():
+    global rows
+
+    print("kindly provide the required details of the person you want to search for")
+    time.sleep(2.2)
+    f_n = input("kindly input the firstname\n")
+    m_n = input("kindly input the middlename\n")
+    l_n = input("kindly input the lastname\n")
+    e_mail = input("kindly input the e_mail\n")
+
+    for k, v in enumerate(rows):
+        for f_n in rows:
+            print(f" # {k}bears the name, {f_n},here are his details,{v}")
+        for m_n in rows:
+            print(f" # {k}bears the name, {m_n},here are his details,{v}")
+        for l_n in rows:
+            print(f" # {k}bears the name, {l_n},here are his details,{v}")
+        for e_mail in rows:
+            print(f" # {k} possess the e-mail, {e_mail},here are his details,{v}")
+

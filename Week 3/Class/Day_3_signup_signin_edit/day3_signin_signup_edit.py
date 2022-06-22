@@ -3,19 +3,23 @@ import sys
 
 head_king = ["firstname", "lastname", "username", "password", "phone_number", "address", "Date_of_birth", "gender"]
 
+with open("day_3.csv", 'a', newline='\n') as x:
+    csv_stuff = csv.DictWriter(x, fieldnames=head_king)
+    csv_stuff.writeheader()
+
 
 # Sign-up Functions
 def sign_up():
-    print(validate_firstname())
+    # print(validate_firstname())
     f_name = validate_firstname()
 
-    print(validate_lastname())
+    # print(validate_lastname())
     l_name = validate_lastname()
 
-    print(validate_username())
+    # print(validate_username())
     u_name = validate_username()
 
-    print(validate_password())
+    # print(validate_password())
     p_word = (validate_password())
 
     store_data_csv(firstname=f_name, lastname=l_name, username=u_name, password=p_word)
@@ -41,7 +45,7 @@ def validate_lastname():
 
 
 def validate_username():
-    user_name = input("kindly input your username(it must contain a number \n")
+    user_name = input("kindly input your username(it must contain a number) \n")
     if len(user_name) > 5 and user_name.isalnum():
         return user_name
     print("invalid username")
@@ -71,7 +75,7 @@ def fetch_data():
         return list(csv_fetch)
 
 
-def update_password_csv(username,old_password,new_password):
+def update_password_csv(username, old_password, new_password):
     with open("day_3.csv", "r") as z:
         csv_update = csv.reader(z)
 
@@ -82,11 +86,11 @@ def update_password_csv(username,old_password,new_password):
 
 # Signin function
 def sign_in():
+    # global rows
     username = input("kindly input your username")
     password = input("kindly input your password")
 
     d_base = fetch_data()
-
     for rows in d_base:
         if username == rows['username'] and password == rows["password"]:
             print("sign in successful")
@@ -100,10 +104,13 @@ def successful():
         f'what would you like to do,today \n(1) Edit profile \n(2) change password \n(3) log out  \n kindly input the number of your choice')
     choice = input()
 
-    if choice == 1:
+    if choice == "1":
         return edit_profile()
-    elif choice == 3:
+    elif choice == '3':
         return intro()
+    elif choice == '2':
+        return change_password()
+    return successful()
 
 
 def validate_phone():
@@ -122,11 +129,11 @@ def validate_address():
 
 def validate_gender():
     gen = (input("what is your gender, (1) Male (2) Female (3) LGBTQ-confused lots"))
-    if gen == 1:
+    if gen == '1':
         return "Male"
-    elif gen == 2:
+    elif gen == '2':
         return 'Female'
-    elif gen == 3:
+    elif gen == '3':
         return "LGBTQ-confused lots"
     else:
         print('Error! Wrong input')
@@ -143,16 +150,12 @@ def d_o_b():
 
 
 def edit_profile():
-    print(validate_phone())
     phone_number = validate_phone()
 
-    print(validate_address())
     addr = validate_address()
 
-    print(validate_gender())
     gender = validate_gender()
 
-    print(d_o_b())
     date_of_birth = d_o_b()
 
     store_data_csv(phone_number=phone_number, address=addr, gender=gender, Date_of_birth=date_of_birth)
@@ -169,7 +172,7 @@ def change_password():
 
     if pass_word == re_password and len(pass_word) >= 7:
         print("correct passwords")
-        return update_password_csv(username,old,pass_word)
+        return update_password_csv(username, old, pass_word)
     print("Error! invalid password format or password doesnt match")
     return change_password()
 
@@ -177,10 +180,13 @@ def change_password():
 # Entry point function
 def intro():
     u_input = input(
-        "Enter (1) if you will like to sign in, (2) if you will like to sign up.......press any other key to exit")
-    if u_input == 1:
+        "Enter (1) if you will like to sign in, (2) if you will like to sign up.......press any other key to exit \n")
+    if u_input == "1":
         return sign_in()
-    elif u_input == 2:
+    elif u_input == "2":
         return sign_up()
     else:
         sys.exit()
+
+
+print(intro())

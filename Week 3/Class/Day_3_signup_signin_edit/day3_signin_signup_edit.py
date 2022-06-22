@@ -3,9 +3,9 @@ import sys
 
 head_king = ["firstname", "lastname", "username", "password", "phone_number", "address", "Date_of_birth", "gender"]
 
-with open("day_3.csv", 'a', newline='\n') as x:
-    csv_stuff = csv.DictWriter(x, fieldnames=head_king)
-    csv_stuff.writeheader()
+# with open("day_3.csv", 'a', newline='\n') as x:
+#     csv_stuff = csv.DictWriter(x, fieldnames=head_king)
+#     csv_stuff.writeheader()
 
 
 # Sign-up Functions

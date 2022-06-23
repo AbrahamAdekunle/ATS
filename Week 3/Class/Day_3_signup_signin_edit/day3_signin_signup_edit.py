@@ -1,7 +1,10 @@
 import csv
 import sys
+import time
+import pandas as pd
 
 head_king = ["firstname", "lastname", "username", "password", "phone_number", "address", "Date_of_birth", "gender"]
+
 
 # with open("day_3.csv", 'a', newline='\n') as x:
 #     csv_stuff = csv.DictWriter(x, fieldnames=head_king)
@@ -45,8 +48,8 @@ def validate_lastname():
 
 
 def validate_username():
-    user_name = input("kindly input your username(it must contain a number) \n")
-    if len(user_name) > 5 and user_name.isalnum():
+    user_name = input("kindly input your username \n")
+    if len(user_name) > 5:
         return user_name
     print("invalid username")
     return validate_username()
@@ -60,19 +63,29 @@ def validate_password():
         print("successful")
         return pass_word
     print("Error! invalid password format or password doesnt match")
+    return validate_password()
 
 
 # CSV function
 def store_data_csv(**update):
     with open("day_3.csv", 'a', newline='\n') as x:
         csv_stuff = csv.DictWriter(x, fieldnames=head_king)
+        # csv_stuff.writeheader()
         csv_stuff.writerow(update)
 
 
 def fetch_data():
-    with open("day_3.csv", 'r') as y:
+    with open("day_3.csv", 'r+') as y:
         csv_fetch = csv.DictReader(y)
         return list(csv_fetch)
+
+
+# def update_edit(**up):
+#     data = fetch_data()
+#     for z in data:
+#         with open("day_3.csv", 'a') as x:
+#             csv_stuff = csv.DictWriter(x, fieldnames=head_king)
+#             csv_stuff.writerow(up)
 
 
 def update_password_csv(username, old_password, new_password):
@@ -94,9 +107,10 @@ def sign_in():
     for rows in d_base:
         if username == rows['username'] and password == rows["password"]:
             print("sign in successful")
+            # time.sleep(2.1)
             return successful()
-        print("invalid details")
-        return sign_in()
+    print("invalid details")
+    return sign_in()
 
 
 def successful():
@@ -110,6 +124,7 @@ def successful():
         return intro()
     elif choice == '2':
         return change_password()
+    print("Error! Invalid input")
     return successful()
 
 
@@ -150,18 +165,70 @@ def d_o_b():
 
 
 def edit_profile():
-    phone_number = validate_phone()
+    # global head_king
+    username = input("Enter your username")
+    passw = input("kindly input your correct password")
+    data = fetch_data()
+    update = []
+    for k, x in enumerate(data):
 
-    addr = validate_address()
+        if username == x["username"] and passw == x["password"]:
+            p_numb = validate_phone()
 
-    gender = validate_gender()
+            addr = validate_address()
 
-    date_of_birth = d_o_b()
+            gend = validate_gender()
 
-    store_data_csv(phone_number=phone_number, address=addr, gender=gender, Date_of_birth=date_of_birth)
+            birthday = d_o_b()
 
-    print("To validate the applied changes, you need to log in again.....so you will be logged out now ")
+            df = pd.read_csv("day_3.csv")
+            df.loc[k, "phone_number"] = p_numb
+            df.loc[k, "address"] = addr
+            df.loc[k, "gender"] = gend
+            df.loc[k, "Date_of_birth"] = birthday
+            df.to_csv("day_3.csv", index=False)
+
+            print(" Edit successful")
+            return successful()
+
+            # update.append(x)
+
+            # for details in update:
+            #     with open("day_3.csv", "w") as kol:
+            #         zoo = csv.DictWriter(kol, fieldnames=head_king)
+            #         zoo.writeheader()
+            #         zoo.writerows(update)
+            #
+            #         print("edit successful")
+            #         return successful()
+
+            # with open("day_3.csv", 'a+') as k:
+            #     zu = csv.DictWriter(k, fieldnames=head_king)
+            #     zu.writerow({"firstname": x["firstname"], "lastname": x["lastname"], "username": x["username"],
+            #                  "password": x["password"], "phone_number": phone_number, "address": addr,
+            #                  "Date_of_birth": date_of_birth, "gender": gender})
+            #     print("Edit successful")
+            #
+            #     # edit_list = []
+            #     with open('day_3.csv', 'a+')as s:
+            #         ru = csv.DictReader(s)
+            #         for row in ru:
+            #             if row['firstname'] == x['username']:
+            #                 dele = csv.DictWriter(s)
+            #
+            #
+            #             # for field in row:
+            #             #     if field == x['firstname']:
+            #             #         edit_list.remove(row)
+            #
+            #     # with open("day_3.csv", 'a') as lo:
+            #     #     loki = csv.DictWriter(lo, fieldnames=head_king)
+            #     #     loki.writerows(edit_list)
+            #     # return successful()
+    print("Error! username doesn't exist ")
     return sign_in()
+
+    # update_edit(phone_number=phone_number, address=addr, gender=gender, Date_of_birth=date_of_birth)
 
 
 def change_password():
@@ -170,10 +237,17 @@ def change_password():
     pass_word = input("input a new password , must be greater than 6 characters ")
     re_password = input("confirm the password you entered")
 
-    if pass_word == re_password and len(pass_word) >= 7:
-        print("correct passwords")
-        return update_password_csv(username, old, pass_word)
-    print("Error! invalid password format or password doesnt match")
+    data = fetch_data()
+    for k, x in enumerate(data):
+        if pass_word == re_password and len(pass_word) >= 7 and username == x["username"] and old == x["password"]:
+            print("correct passwords")
+            df = pd.read_csv("day_3.csv")
+            df.loc[k, "password"] = pass_word
+            df.to_csv("day_3.csv", index=False)
+            print("change successful")
+            return successful()
+
+    print("Error! invalid details")
     return change_password()
 
 

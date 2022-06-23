@@ -88,13 +88,13 @@ def fetch_data():
 #             csv_stuff.writerow(up)
 
 
-def update_password_csv(username, old_password, new_password):
-    with open("day_3.csv", "r") as z:
-        csv_update = csv.reader(z)
-
-    for edit in csv_update:
-        with open("day_3.csv", "a") as x:
-            csv_edit = csv.DictWriter(x)
+# def update_password_csv(username, old_password, new_password):
+#     with open("day_3.csv", "r") as z:
+#         csv_update = csv.reader(z)
+#
+#     for edit in csv_update:
+#         with open("day_3.csv", "a") as x:
+#             csv_edit = csv.DictWriter(x)
 
 
 # Signin function
@@ -199,7 +199,7 @@ def edit_profile():
             #         zoo.writeheader()
             #         zoo.writerows(update)
             #
-            #         print("edit successful")
+            #         print("edit successful")3
             #         return successful()
 
             # with open("day_3.csv", 'a+') as k:

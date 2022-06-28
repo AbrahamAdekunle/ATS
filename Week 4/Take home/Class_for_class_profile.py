@@ -1,4 +1,4 @@
-import datetime
+
 from datetime import date
 
 backend = {
@@ -127,10 +127,10 @@ backend = {
 
 
 class ClassProfile:
-    global backend
+    # global backend
 
     def __init__(self, **b_end):
-        self.data = backend
+        self.data = b_end
         # self.firstname = b_end["firstname"]
         # self.lastname = b_end["lastname"]
         # self.attendance = b_end["attendance"]
@@ -236,12 +236,18 @@ class ClassProfile:
 
     def group_by_month(self):
         grouping = []
+        for x in self.data:
+            grouping.append(((self.data[x]["day of birth"])[1]))
+
+        grouping.sort()
 
         for x in self.data:
-            grouping.insert(((self.data[x]["day of birth"])[1]) - 1, self.data[x])
+            for y in grouping:
+                if ((self.data[x]["day of birth"])[1]) == y:
+                    grouping[grouping.index(y)] = self.data[x]
 
         return grouping
 
 
-c = ClassProfile().group_by_month()
+c = ClassProfile(**backend).group_by_month()
 print(c)

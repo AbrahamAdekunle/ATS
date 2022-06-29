@@ -17,10 +17,10 @@ class SignUpSignIn:
             return list(csv_reader)
 
     def sign_up(self):
-        self.field["firstname"] = SignUpSignIn.validate_firstname()
-        self.field["lastname"] = SignUpSignIn.validate_lastname()
-        self.field["username"] = SignUpSignIn.validate_username()
-        self.field["password"] = SignUpSignIn.validate_password()
+        self.field["firstname"] = SignUpSignIn.validate_firstname(self)
+        self.field["lastname"] = SignUpSignIn.validate_lastname(self)
+        self.field["username"] = SignUpSignIn.validate_username(self)
+        self.field["password"] = SignUpSignIn.validate_password(self)
 
         # checker = SignUpSignIn.store_data()
 

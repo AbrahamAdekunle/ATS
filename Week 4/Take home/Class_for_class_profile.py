@@ -231,7 +231,7 @@ class ClassProfile:
         n_data['age'] = age
         n_data["e-mail"] = email
 
-        self.data.update()
+        self.data.update(n_data)
         return self.data
 
     def group_by_month(self):

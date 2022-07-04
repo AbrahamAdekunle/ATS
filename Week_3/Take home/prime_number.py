@@ -25,7 +25,7 @@ def prime_number_root(number: int):
         if number % prime == 0:
             return f"{number} is not a prime nuber"
     else:
-        return f'{number} is a square root'
+        return f'{number} is a prime number'
 
 
 print(return_prime_value(range(900,1900)))

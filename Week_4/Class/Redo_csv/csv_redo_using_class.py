@@ -179,5 +179,5 @@ class SignUpSignIn:
             sys.exit()
 
 
-SignUpSignIn().intro()
+SignUpSignIn().sign_in()
 # s.header_for_csv()

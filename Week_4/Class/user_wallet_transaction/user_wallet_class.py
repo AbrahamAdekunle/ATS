@@ -39,7 +39,8 @@ class User:
 
         with open("user_details.csv", "a", newline="\n") as x:
             writer = csv.DictWriter(x, fieldnames=User.head_king)
-            # writer.writeheader()
+            if len(User.get_data()) < 1:
+                writer.writeheader()
             writer.writerow(self.field)
 
         return "Registration Successful"
@@ -54,10 +55,17 @@ class User:
             if v["username"] == user and v['pin'] == pin:
                 print("You will be missed, GOODBYE!!")
                 delete = pandas.read_csv("user_details.csv")
-                delete.drop(k)
-                delete.to_csv("user_wallet.csv", index=False)
+                delete.loc[k, "Firstname"] = "%"
+                delete.loc[k, "Middlename"] = "%"
+                delete.loc[k, "Lastname"] = "%"
+                delete.loc[k, "username"] = "%"
+                delete.loc[k, "phone number"] = "%"
+                delete.loc[k, "wallet_ID"] = "%"
+                delete.loc[k, "pin"] = "%"
+                delete.loc[k, "balance"] = "%"
+                delete.to_csv("user_details.csv", index=False)
                 print("Deletion Successful")
-            elif v["username"] != user and v['pin'] != pin:
+            if v["username"] != user and v['pin'] != pin:
                 print("Invalid Details!!")
                 sys.exit()
 
@@ -115,7 +123,9 @@ class Wallet(User):
         pin = input("kindly input your pin\n")
 
         for k, x in enumerate(User.get_data()):
-            if wallet == x["wallet_ID"] and pin == x["pin"]:
+            if wallet == "%" and pin == "%":
+                return "Invalid details"
+            elif wallet == x["wallet_ID"] and pin == x["pin"]:
                 print("correct Credentials!!")
                 # transaction_id = wallet[0:3] + "".join(random.sample(User.for_pin, 10))
                 Transaction.logging_transaction(Date=User.date, wallet_ID=wallet,
@@ -128,8 +138,7 @@ class Wallet(User):
                 df.loc[k, "balance"] = int(x["balance"]) + amount
                 df.to_csv("user_details.csv", index=False)
                 return "successful"
-
-            elif wallet != x["wallet_ID"] or pin != x["pin"]:
+            if wallet != x["wallet_ID"] or pin != x["pin"]:
                 print("invalid details")
                 sys.exit()
 
@@ -138,7 +147,9 @@ class Wallet(User):
         pin = input("kindly inout your pin")
 
         for k, x in enumerate(User.get_data()):
-            if wallet == x["wallet_ID"] and pin == x["pin"]:
+            if wallet == "%" and pin == "%":
+                return "Invalid details"
+            elif wallet == x["wallet_ID"] and pin == x["pin"]:
                 print("correct Credentials!!")
                 while True:
                     amount = int(input("Kindly enter the amount you will like to withdraw"))
@@ -169,7 +180,7 @@ class Wallet(User):
                 else:
                     sys.exit()
 
-            elif wallet != x["wallet_ID"] and pin != x["pin"]:
+            if wallet != x["wallet_ID"] and pin != x["pin"]:
                 print("invalid details")
                 sys.exit()
 
@@ -182,7 +193,7 @@ class Wallet(User):
         for x in data:
             if wallet == x["wallet_ID"] and pin == x["pin"]:
                 print("valid details")
-                print (f"{x['balance']}, is your balance as at {datetime.datetime.now()}")
+                print(f"{x['balance']}, is your balance as at {datetime.datetime.now()}")
             return "Error! Invalid details"
 
 
@@ -191,9 +202,10 @@ class Transaction(User):
     def logging_transaction(**kwargs):
         with open("transactions.csv", "a", newline="\n") as z:
             writer = csv.DictWriter(z, fieldnames=User.header_transaction)
-            # writer.writeheader()
+            if len(User.get_data()) < 1:
+                writer.writeheader()
             writer.writerow(kwargs)
 
 
-# Wallet().get_balance()
+# Wallet().fund_wallet()
 User().delete_user()

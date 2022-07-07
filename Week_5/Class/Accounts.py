@@ -31,9 +31,9 @@ class Wallet:
     @firstname.setter
     def firstname(self, value):
         if len(value) > 15:
-            raise Exception(f"{value} is too long")
+            raise ValueError(f"{value} is too long")
         elif value == self.__firstname:
-            raise Exception(f"{value} is the same as previous username")
+            raise   ValueError(f"{value} is the same as previous username")
         elif len(value) < 15 and value != self.__firstname:
             self.__firstname = value
 
@@ -44,9 +44,9 @@ class Wallet:
     @lastname.setter
     def lastname(self, value):
         if len(value) > 15:
-            raise Exception(f"{value} is too long")
+            raise ValueError(f"{value} is too long")
         elif value == self.__lastname:
-            raise Exception(f"{value} is the same as previous username")
+            raise ValueError(f"{value} is the same as previous username")
         elif len(value) <= 15 and value != self.__lastname:
             self.__lastname = value
 
@@ -57,9 +57,9 @@ class Wallet:
     @username.setter
     def username(self, value):
         if len(value) > 15:
-            raise Exception(f"{value} is too long")
+            raise ValueError(f"{value} is too long")
         elif value == self.__username:
-            raise Exception(f"{value} is the same as previous username")
+            raise ValueError(f"{value} is the same as previous username")
         elif len(value) <= 15 and value != self.__username:
             self.__username = value
 

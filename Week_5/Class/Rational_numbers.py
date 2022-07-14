@@ -16,7 +16,7 @@ class RationalNumber:
 
     denominator = property(fset=set_denominator, fget=get_denominator)
 
-    def addition(self, other):
+    def __add__(self, other):
         if not isinstance(other, RationalNumber):
             raise Exception("Invalid data type")
         else:
@@ -36,33 +36,35 @@ class RationalNumber:
                     return RationalNumber.reduced_form(
                         ((self.numerator * other.denominator) + (other.numerator * self.denominator)), denom)
 
-    def multiplication(self, other):
+    def __mul__(self, other):
         if not isinstance(other, RationalNumber):
             raise ValueError("Invalid data type")
         return RationalNumber.reduced_form((self.numerator * other.numerator), (self.denominator * other.denominator))
 
-    def division(self, other):
+    def __truediv__(self, other):
         if not isinstance(other, RationalNumber):
             raise Exception("Invalid data type")
         return RationalNumber.reduced_form((self.numerator * other.denominator), (other.numerator * self.denominator))
 
-    def subtraction(self, other):
+    def __sub__(self, other):
         if not isinstance(other, RationalNumber):
             raise Exception("Invalid data type")
         else:
             if self.denominator == other.denominator:
-                RationalNumber.reduced_form((self.numerator - self.numerator), self.denominator)
+                return RationalNumber.reduced_form((self.numerator - self.numerator), self.denominator)
             else:
                 if self.denominator % other.denominator == 0:
                     denom = self.denominator / other.denominator
-                    RationalNumber.reduced_form(
+                    return RationalNumber.reduced_form(
                         ((self.numerator * other.denominator) - (other.numerator * self.denominator)), denom)
                 elif other.denominator % self.denominator == 0:
                     denom = other.denominator / self.denominator
-                    RationalNumber.reduced_form(((self.numerator * other.denominator) - (other.numerator * self.denominator)), denom)
+                    return RationalNumber.reduced_form(
+                        ((self.numerator * other.denominator) - (other.numerator * self.denominator)), denom)
                 else:
                     denom = self.denominator * other.denominator
-                    RationalNumber.reduced_form(((self.numerator * other.denominator) - (other.numerator * self.denominator)) , denom)
+                    return RationalNumber.reduced_form(
+                        ((self.numerator * other.denominator) - (other.numerator * self.denominator)), denom)
 
     def print_float(self):
         return f"{float(self.numerator)} / {float(self.denominator)}"
@@ -77,7 +79,7 @@ class RationalNumber:
         return f"{x} / {y}"
 
 
-frac_1 = RationalNumber(1, 4)
-frac_2 = RationalNumber(1, 4)
-print(frac_2.addition(frac_1))
+frac_1 = RationalNumber(13, 4)
+frac_2 = RationalNumber(34, 8)
+print(frac_1 - frac_2)
 # print(frac_2.print_float())

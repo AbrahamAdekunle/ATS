@@ -3,14 +3,28 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="\day_3.csv">
+        <entry key="C:\Users\AbrahamGrahamAdekunl\PycharmProjects\ATS\Week_4\Class\Redo_csv\csv_redo.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="diff.csv">
+        <entry key="C:\Users\AbrahamGrahamAdekunl\PycharmProjects\ATS\Week_4\Class\Redo_csv\day_3.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="C:\Users\AbrahamGrahamAdekunl\PycharmProjects\ATS\Week_6\Take home\Class for SigninSignup\csv_redo.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\day_3.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

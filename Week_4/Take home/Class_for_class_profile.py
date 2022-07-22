@@ -249,5 +249,5 @@ class ClassProfile:
         return grouping
 
 
-c = ClassProfile(**backend).group_by_month()
+c = ClassProfile(**backend).get_fullname('atajudeen@afexnigeria.com')
 print(c)

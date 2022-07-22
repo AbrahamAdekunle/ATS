@@ -1,0 +1,145 @@
+body{
+  color: #393E46;
+  font-family: 'Merriweather', serif;
+  margin: 0;
+  text-align: center;
+}
+h1{
+  color: #14274E;
+  font-family: 'Tangerine', cursive;
+  font-size: 100px;
+  margin: 50px auto 0 auto;
+}
+h2{
+  font-family: 'Montserrat', sans-serif;
+  color: #14274E;
+  font-size: 40px;
+}
+h3{
+  font-family: 'Montserrat', sans-serif;
+  color: #394867;
+  font-size: 30px;
+}
+p{
+  line-height: 2;
+}
+hr{
+  border: dotted #F1F6F9 10px;
+  border-bottom: none;
+  margin: 100px auto;
+  width:3%;
+}
+a{
+  font-family: 'Montserrat', sans-serif;
+  color: #536162;
+}
+a:hover{
+  color: #7E9BC9;
+}
+.first{
+  background-color: #A7C5EB;
+  position: relative;
+  padding-top: 100px;
+}
+.second{
+  margin: 100px 0;
+}
+.third{
+  background-color: #A7C5EB;
+  padding: 50px 0 20px;
+}
+.skill-set{
+  margin: 100px auto 100px auto;
+  text-align: left;
+  width: 50%;
+}
+.landscape{
+  width: 70%;
+  position: relative;
+  margin: 100px auto 0 auto;
+  padding-bottom: 0;
+}
+.cloud{
+  position: absolute;
+  left: 50px;
+  bottom: 300px;
+  width: 10%;
+}
+.sun-ray{
+  position: absolute;
+  right: 100px;
+  top: 30px;
+  width: 10%;
+}
+.header-desc{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 100%;
+  color: #14274E;
+}
+.profile-picture{
+  border-radius: 100%
+}
+.intro{
+  width: 40%;
+  margin: auto;
+}
+.solutions{
+  width: 25%;
+  float: left;
+  margin-right: 30px;
+}
+.digmrktn{
+  width: 25%;
+  float: right;
+  margin-left: 30px;
+}
+.geophysicst{
+  width: 25%;
+  float: left;
+  margin-right: 30px;
+}
+.football{
+  width:25%;
+  float: right;
+  margin-left: 30px;
+}
+.contact{
+  text-align: center;
+  width: 40%;
+  margin: 40px auto 60px auto;
+}
+.footer-link{
+  text-decoration: none;
+  margin: 10px 20px;
+}
+.copyright{
+  font-size: 10px;
+  padding: 20px 0;
+  font-family: 'Montserrat', sans-serif;
+}
+.btn {
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   color: #14274E;
+   font-family: 'Merriweather', serif;
+   font-size: 14px;
+   padding: 10px;
+   border-color-hover: ;
+   border-style-hover: solid;
+   border-width-hover: 1;
+   background-color: #9BA4B4;
+   text-decoration: none;
+   display: inline-block;
+   cursor: pointer;
+   text-align: center;
+}
+
+.btn:hover {
+   background: #F1F6F9;
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   text-decoration: none;
+}

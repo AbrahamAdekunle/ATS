@@ -1,0 +1,7 @@
+# Default ignored files
+Include/
+Lib/
+Scripts/
+__init__.py
+shelf/
+workspace.xml

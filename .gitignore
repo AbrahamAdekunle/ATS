@@ -8,3 +8,4 @@ workspace.xml
 .idea/
 pyvenv.cfg
 _pycache_/
+*.pyc

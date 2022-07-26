@@ -5,3 +5,6 @@ Scripts/
 __init__.py
 shelf/
 workspace.xml
+.idea/
+pyvenv.cfg
+_pycache_/

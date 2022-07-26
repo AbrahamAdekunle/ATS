@@ -1,6 +1,10 @@
 import uuid
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+from datetime import date
+
+
 
 # Create your models here.
 class Genre(models.Model):
@@ -8,6 +12,12 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
+
+
+    def display_genre(self):
+        return ", ".join(genre.name for genre in self.genre.all()[:3])
+
+    display_genre.short_description = "Genre"
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
@@ -21,13 +31,14 @@ class Book(models.Model):
         return f"{self.title} by {self.author}"
 
     def get_absolute_url(self):
-        return reverse('book-detail', args=[str(self.id)])
+        return reverse('catalog:book-detail', args=[str(self.id)])
 
 class BookInstance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular book across whole library')
     book = models.ForeignKey("Book", on_delete=models.RESTRICT, null=True)
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     LOAN_STATUS = (
         ('m', 'Maintenance'),
         ('o', 'On loan'),
@@ -43,8 +54,19 @@ class BookInstance(models.Model):
         help_text='Book availability',
     )
 
+
+
+    @property
+    def is_overdue(self):
+        """Determines if the book is overdue based on due date and current date."""
+        return bool(self.due_back and date.today() > self.due_back)
+
     class Meta:
         ordering = ["due_back"]
+        permissions = (
+            ("can_mark_returned", "Set book as returned"),
+            ("can_renew", "Can renew book due date"),
+        )
 
     def __str__(self):
         return f"{self.id} {self.book.title} {self.status}"
@@ -63,4 +85,4 @@ class Author(models.Model):
         return f"{self.last_name}, {self.first_name}"
 
     def get_absolute_url(self):
-        return reverse('author-detail', args=[str(self.id)])
+        return reverse('catalog:author-detail', args=[str(self.id)])

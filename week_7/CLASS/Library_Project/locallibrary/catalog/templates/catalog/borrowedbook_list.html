@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+    <h1>Borrowed Books</h1>
+    {% if borrowed_book %}
+        <ul>
+            {% for book in borrowed_book %}
+            <li><a href="{{book.book.get_absolute_url}}">{{book.book.title}}</a> by {{book.borrower}}--{{book.due_back}} {% if perms.catalog.can_renew %}---<a href="{% url 'catalog:renew-book-librarian' book.id %}">Renew</a>{% endif %} </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no borrowed books in the library</p>
+    {% endif %}
+{% endblock %}

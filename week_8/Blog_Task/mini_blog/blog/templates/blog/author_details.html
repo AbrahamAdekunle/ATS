@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>{{author}}</h1>
+<ul>
+  <li>Country: {{author.country}}</li>
+  <li>Date of employment: {{author.date_of_registration}}</li>
+</ul>
+<br>
+{% if author.article_set.all.count > 0 %}
+  <p>Articles Written</p>
+    {% for article in author.article_set.all %}
+    <ol>
+      <li><a href="{% url 'blog:article-details' article.slug %}">{{article}}</a>  written on {{article.date_uploaded}}</li>
+    </ol>
+    {% endfor%}
+{% else %}
+<p>No Articles Written Yet</p>
+{% endif %}
+<hr>
+<h4>Bio</h4>
+<p>{{author.villain_story}}</p>
+{% endblock %}

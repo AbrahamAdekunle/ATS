@@ -3,13 +3,14 @@ import string
 vowels = ['a', 'e', 'i', 'o', 'u']
 v_char = ['#', '$', '%', '&', '*']
 alpha_char = string.ascii_lowercase
-reversed_alpha_char = alpha_char [::-1]
+reversed_alpha_char = alpha_char[::-1]
 alpha_char_u = string.ascii_uppercase
 spec_char = string.punctuation
 digits = string.digits
 
-def encode(enc:str):
-    encrypt =[]
+
+def encode(enc: str):
+    encrypt = []
 
     for s in enc:
         if s in vowels:
@@ -25,15 +26,12 @@ def encode(enc:str):
     return "".join(encrypt)
 
 
-
-
 word = input("kindly input the word you want to encrypt ")
 
 print(encode(word))
 
 
-
-def decode (decr:str):
+def decode(decr: str):
     decrypt = []
     dec = list(decr)
     for item in range(0, len(dec)):
@@ -42,31 +40,19 @@ def decode (decr:str):
         elif dec[item] == '^':
             decrypt.append(reversed_alpha_char.index(dec[item + 1]))
             # decrypt.append(digits(reverse_alpha_char.index(dec[item + 1])))
-            dec.pop(dec[item + 1])
+            # dec.remove(dec[item])
         elif dec[item] == "|":
             decrypt.append(dec[item + 1])
-            dec.pop(dec[item + 1])
+            # dec.remove(dec[item])
         elif dec[item] in alpha_char_u + alpha_char:
             decrypt.append(dec[item].swapcase())
 
-
     return "".join(decrypt)
-
 
 
 word = input("kindly input the word you want to decrypt ")
 
 print(decode(word))
-
-
-
-
-
-
-
-
-
-
 
 # def decoded(decr: str):
 #     decrypt = []

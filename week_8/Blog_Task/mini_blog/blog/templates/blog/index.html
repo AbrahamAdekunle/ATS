@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+
+<head>
+  {% block title %}<title>Koder Black's Mini Blog </title>{% endblock %}
+</head>
+{% block content %}
+  <h1>Mini-Blog</h1>
+  <p>Welcome to Koder's Blog, a Blog developed by <em>47</em>!</p>
+  <h2>Descriptive History</h2>
+  <p>This blog was developed by 47, as a task, isssued during the ATS program. To develop the blog, previous knowledge on different aspect of the django packages would need to be implemented. Presently the blog has, </p>
+  <ul>
+    <li><strong>Articles:</strong> {{ num_articles }}</li>
+    <li><strong>Authors:</strong> {{ num_authors }}</li>
+    <li><strong>Niches:</strong> {{num_niches}}</li>
+  </ul>
+
+{% endblock %}

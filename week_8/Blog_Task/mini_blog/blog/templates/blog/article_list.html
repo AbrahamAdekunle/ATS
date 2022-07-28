@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Articles List</h1>
+    {% if article_list %}
+        <ul>
+        {% for article in article_list %}
+        <li><a href="{% url 'blog:article-details' article.slug %}">{{article}}</a> by <a href="{% url 'blog:author-details' article.author.id %}">{{article.author}}</a> on {{article.date_uploaded}}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No articles uploaded Yet</p>
+    {% endif %}
+{% endblock %}

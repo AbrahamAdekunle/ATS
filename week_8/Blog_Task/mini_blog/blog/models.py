@@ -66,6 +66,10 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ["date_of_comment"]
+        unique_together = ["article", "comment", "commenter_name"]
 
     def __str__(self):
-        return f"{self.comment}"
+        return f"{self.date_of_comment}"
+
+    def comment_description(self):
+        return self.comment[:50]

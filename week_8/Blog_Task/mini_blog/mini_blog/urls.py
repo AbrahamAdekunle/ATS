@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
+from blog import views
 
 urlpatterns = [
     path('NoBoneZ/', admin.site.urls),
     path("blog/", include("blog.urls")),
     path("", RedirectView.as_view(url="blog/", permanent=True)),
+    path("accounts/signup", views.create_user, name='signup'),
     path("accounts/", include("django.contrib.auth.urls")),
     path('__debug__/', include('debug_toolbar.urls')),
 ]

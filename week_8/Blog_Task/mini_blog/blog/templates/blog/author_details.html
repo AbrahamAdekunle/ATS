@@ -1,21 +1,59 @@
 {% extends "base_generic.html" %}
 
+{% block title %}
+<title>{{author}}</title>
+{% endblock %}
+
 {% block content %}
 <h1>{{author}}</h1>
+{% if author.author_picture %}
+<img src="{{author.author_picture.url}}" alt ='author profile picture'>
+{% endif %}
+
 <ul>
   <li>Country: {{author.country}}</li>
   <li>Date of employment: {{author.date_of_registration}}</li>
 </ul>
 <br>
-{% if author.article_set.all.count > 0 %}
-  <p>Articles Written</p>
-    {% for article in author.article_set.all %}
-    <ol>
+
+
+{% if active_articles.all.count > 0 %}
+  <h4>Articles Written</h4>
+    {% for article in active_articles.all %}
+    <ul>
       <li><a href="{% url 'blog:article-details' article.slug %}">{{article}}</a>  written on {{article.date_uploaded}}</li>
-    </ol>
+        {% if user.is_staff and user.first_name == article.author.firstname and user.last_name == article.author.lastname %}
+      <a href="{% url 'blog:delete-article' article.slug %}"><small>DELETE ARTICLE</small></a>
+          {% endif %}
+    </ul>
     {% endfor%}
 {% else %}
 <p>No Articles Written Yet</p>
+{% endif %}
+
+
+
+{% if user.is_staff %}
+<h4>Deleted Articles</h4>
+  {% if deleted_articles.all.count > 0 %}
+    {% for article in deleted_articles.all %}
+      <ul>
+        <li>{{article}}</li>
+        {% if user.is_staff and user.first_name == article.author.firstname and user.last_name == article.author.lastname %}
+        <small><a href="{% url 'blog:restore-article' article.slug %}">Restore Article</a></small>
+        {% endif %}
+      </ul>
+      {% endfor %}
+  {% else %}
+    <p>No deleted articles</p>
+  {% endif %}
+{% endif %}
+
+
+
+{% if user.is_staff and user.first_name == author.firstname and user.last_name == author.lastname%}
+<hr>
+<a href="{% url 'blog:update-author-details' author.id %}">UPDATE PROFILE</a>
 {% endif %}
 <hr>
 <h4>Bio</h4>

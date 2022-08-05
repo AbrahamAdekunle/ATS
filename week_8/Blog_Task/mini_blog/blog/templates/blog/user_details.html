@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+<h1>{{user| title}}</h1>
+<p><strong>Username:</strong>   {{user.username}}</p>
+<p><strong>Firstname:</strong>   {{user.first_name}}</p>
+<p><strong>Lastname:</strong>   {{user.last_name}}</p>
+<p><strong>Email:</strong>   {{user.email}}</p>
+
+<a href="{% url 'blog:change-password' user.username %}">Change password</a>
+<hr>
+<a href="{% url 'blog:update-user-details' user.username %}">EDIT PROFILE</a>
+<hr>
+<h3><a href="{% url 'blog:delete-user' user.username %}">DELETE PROFILE</a></h3>
+{% endblock%}

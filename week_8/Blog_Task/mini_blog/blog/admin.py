@@ -11,14 +11,14 @@ class Commentinline(admin.StackedInline):
 
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ("firstname", "lastname", "country")
-    fields = ["firstname", "lastname", "villain_story", "country"]
+    # fields = ["firstname", "lastname", "villain_story", "country"]
 
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ("title", "author", "date_uploaded")
     prepopulated_fields = {"slug": ("title",)}
 
-    list_filter = ("title", "author", "date_uploaded")
+    list_filter = ("is_delete","title", "author", "date_uploaded")
 
     inlines = [Commentinline]
 

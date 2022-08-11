@@ -67,10 +67,13 @@ def articledetails(request, slug):
         comment_form = CommentOnArticle(request.POST)
 
         if comment_form.is_valid():
+            print("Got Here")
             comment = comment_form.save(commit=False)
             comment.article = Article.objects.get(slug=slug)
             comment.commenter_name = request.user
+            print("Got Here 2 ")
             comment.save()
+
 
             return HttpResponseRedirect(reverse("blog:article-details", args=[slug]))
 

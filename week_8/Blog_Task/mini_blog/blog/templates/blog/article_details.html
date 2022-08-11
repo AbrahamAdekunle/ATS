@@ -35,14 +35,14 @@
 {% if user.is_authenticated and not user.is_staff %}
     {% for comment in active_comments %}
         <p><strong>{{comment.comment}}</strong></p>
-        <p>by {{comment.commenter_name}} on {{comment.date_of_comment}}</p>
+        <p>by {{comment.commenter_name}} on {{comment.date_of_comment | timesince}}</p>
         <hr>
     {% endfor %}
 
 {% elif user.is_staff %}
      {% for comment in all_comments %}
         <p><strong>{{comment.comment}}</strong></p>
-        <p>by {{comment.commenter_name}} on {{comment.date_of_comment}}
+        <p>by {{comment.commenter_name}} on {{comment.date_of_comment | timesince}}
                 {% if user.first_name == article.author.firstname and user.last_name == article.author.lastname and not comment.is_delete %}
         ---<small><a href="{% url 'blog:delete-comment' article.slug comment.id  %}">Delete Comment</a></small>{% endif %}
         </p>
@@ -64,58 +64,33 @@
 
 
 <h3>Post Your comment</h3>
-<form action="" method="post" id="comment-form">
+<form method="POST" id="comment-form">
 {% csrf_token %}
-<p id="comment">
-{{ comment_form }}
-</p>
+    {{comment_form.as_p}}
 <input type="submit"  id="submit-comment" value="Submit">
 </form>
 <hr>
 
-<div></div>
-<!--<script>-->
-<!--    const comment ={-->
-<!--    submit : document.getElementById("submit-comment")-->
-
-<!--    };-->
 
 
-<!--    comment.submit.addEventListener('click', () => {-->
-<!--        const request = new XMLHttpRequest();-->
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous" ></script>
+<script type="text/javascript" charset="utf-8" >
+    $(document).on('submit','#comment-form',function(e) {
+        e.preventDefault();
+        console.log('Javascript @@@@');
 
-
-<!--        request.onload = () =>{-->
-<!--            console.log(request.responseText);-->
-<!--        };-->
-
-
-<!--        request.open("post", "./views");-->
-<!--        request.setRequestHeader('content-type', "blog:article-comment");-->
-<!--        request.send(requestData);-->
-<!--    });-->
-
-
-<!--</script>-->
-
-
-<script>
-
-    $(document).on('submit','#comment-form', function(e){
-            e.preventDefault();
-
-            $.ajax({
-                type :"post",
-                url: "{% url 'blog:article-details' article.slug %}",
-                data:{
-                    comment : $("#comment").val()
-                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()
-                },
-                success:function(){
-                        alert("added new comment");
-                }
-            });
-    });
-</script>
+        $.ajax({
+            type:'POST',
+            url:'{% url "blog:article-details" article.slug %}',
+            data:
+            {
+                comment:$("#id_comment").val(),
+                 csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            })
+        });
+  </script>
 {% endblock %}
 

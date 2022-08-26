@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="account_info">
+  <p>Welcome, {{user.username}}</p>
+  <small>{{user.email}}</small>
+    <br>
+    <br>
+
+  <h2>My Details</h2>
+  <ul>
+     <a href="{% url 'nucleus:update_details' user.id %}"><li>Details</li></a>
+     <a><li>Address Book</li></a>
+     <a href="{% url 'nucleus:change_password' user.id %}"><li>Change Password</li></a>
+     <a><li>Close Account</li></a>
+  </ul>
+
+</div>
+{% endblock %}

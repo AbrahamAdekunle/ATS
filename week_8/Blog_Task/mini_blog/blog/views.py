@@ -5,12 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse
 from .forms import CommentOnArticle, CreateUserForm, UpdateAuthor, UpdateUser, ChangePassword
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
+# from django.core import serializers
 from django.db.models import Q
 
 # Create your views here.
@@ -63,27 +64,39 @@ def articledetails(request, slug):
     active_comments = Comment.active_objects.filter(article=article)
     deleted_comments = Comment.deleted_objects.filter(article=article)
 
-    if request.method == "POST":
-        comment_form = CommentOnArticle(request.POST)
-
-        if comment_form.is_valid():
+    if request.method == "GET":
+        comment_form = CommentOnArticle()
+        context = {"article": article,
+                   "comment_form": comment_form,
+                   "all_comments": all_comments,
+                   "deleted_comments": deleted_comments,
+                   "active_comments": active_comments}
+        return render(request, "blog/article_details.html", context)
+    # else:
+    #     return JsonResponse({"error": "Error occured"}, status=400)
+    else:
+        # comment_form = CommentOnArticle(request.POST)
+            comment = request.POST["comment"]
+            print(comment)
             print("Got Here")
-            comment = comment_form.save(commit=False)
-            comment.article = Article.objects.get(slug=slug)
-            comment.commenter_name = request.user
-            print("Got Here 2 ")
+            print(request.user.username)
+            user = User.objects.get(username=request.user.username)
+            comment = Comment.objects.create(comment=comment,article=Article.objects.get(slug=slug),commenter_name=user)
             comment.save()
+            print("Got Here 2 ")
+            response = {
+                "comment_commenter_name":comment.commenter_name,
+                "comment_comment":comment.comment,
+                "comment_article":comment.article,
+            }
+            print("Responded")
+            return JsonResponse(response,content_type="Application/json")
+            # return HttpResponseRedirect(reverse("blog:article-details", args=[article.slug]))
+        #     serialize_comment = serializers.serialize('json', [comment])
+        #     return JsonResponse({"comment": serialize_comment}, status=200)
+        # else:
+        #     return JsonResponse({"error": "Error occured"}, status=400)
 
-
-            return HttpResponseRedirect(reverse("blog:article-details", args=[slug]))
-
-    comment_form = CommentOnArticle()
-    context = {"article": article,
-               "comment_form": comment_form,
-               "all_comments": all_comments,
-               "deleted_comments":deleted_comments,
-               "active_comments":active_comments}
-    return render(request, "blog/article_details.html", context )
 
 
 class CommentCreate(View):

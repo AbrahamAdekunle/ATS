@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<style>
+
+    .cart_summary{
+        display: grid;
+        grid-template-columns: 5fr 2fr;
+        grid-template-rows: auto;
+        column-gap: 30px;
+    }
+
+    .individual_ordered_item img{
+        width:10px;
+
+    }
+
+    .total_price{
+        border:1px solid black;
+    }
+
+    .total_price_returns{
+        position:sticky;
+        top:0;
+    }
+
+    .all_items_in_wishlist{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    row-gap: 30px;
+    column-gap: 100px;
+  }
+
+    .wishlist_items{
+        border:1px solid black;
+        margin-right:300px;
+    }
+
+
+</style>
+
+
+<div class="cart_page">
+    <h3>{{cart.user.username | title}} <span><strong>, Here is your order summary</strong></span></h3>
+
+    <div class="cart_summary">
+        <div>
+            {% for item in ordered_items %}
+            <div class="individual_ordered_item">
+                <img src="{{item.item.picture_of_product_1.url}}" alt="{{item.item.name}}">
+                <p><strong>{{item.item.name}}</strong></p>
+
+                {% if item.discount > 0 %}
+                    <p>{{item.item.get_real_price}}</p>
+                    <p>{{item.item.get_price_discount_percentage}}</p>
+                    <p><del>{{item.item.price}}</del></p>
+                {% else %}
+                    <p>{{item.item.price}}</p>
+                {% endif %}
+
+                <p>seller: {{item.item.vendor}}</p>
+                <a href="{% url 'main_store:remove_from_cart' request.user.id item.item.id %}">
+                    <img src="{% static 'images/trash.svg' %}" alt="Remove">
+                    <spam><strong>REMOVE</strong></spam>
+                </a>
+
+                <a href="{% url 'main_store:increase_quantity' request.user.id item.item.id %}">
+                <img src="{% static 'images/arrow-up.svg' %}" alt="increase_quantity">
+                </a>
+
+                <span>{{item.quantity}}</span>
+
+                <a href="{% url 'main_store:reduce_quantity' request.user.id item.item.id %}">
+                <img src="{% static 'images/arrow-down.svg' %}" alt="reduce quantity">
+                </a>
+            </div>
+
+
+            {% empty %}
+            <p>No items in the Cart. To add items to the Cart, kindly browse our <a href="{% url 'main_store:index' %}">Categories</a></p>
+            {% endfor %}
+        </div>
+
+
+        {% if ordered_items.count > 0 %}
+            <div class="total_price_returns">
+                <div class="total_price">
+                    <p><strong>SUBTOTAL</strong></p>
+                    <span>{{total}}</span>
+
+                    <small>Delivery fees not included yet</small>
+                    <a href="{% url 'main_store:checkout' request.user.id %}"><button type="submit">CHECKOUT</button></a>
+                </div>
+
+                <div class="about_returns">
+                    <h5>Returns are easy</h5>
+                    <p>Free return within 15 days for Official Store items and 7 days for items from other vendors.</p>
+                </div>
+
+            </div>
+        {% endif %}
+
+
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+    <div class="wishlist">
+        <h3>Wishlist({{wishlist.count}})</h3>
+
+        <div class="all_items_in_wishlist">
+            {% for item in wishlist %}
+            <div class="wishlist_items">
+                <p>{{item.name}}</p>
+                <p>{{item.get_real_price}}</p>
+
+
+                    {% if item.get_price_discount_percentage > 1 %}
+                        <p>{{item.get_price_discount_percentage}}%</p>
+                    {% endif %}
+
+                 <a href="{% url 'main_store:add_to_cart' item.id %}">
+                     <button type="submit"> ADD TO CART</button>
+                 </a>
+            </div>
+            {% empty %}
+                <p>No Items in your wishlist</p>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+
+</div>
+{% endblock %}

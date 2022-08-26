@@ -1,7 +1,7 @@
-"""Portfolio_website URL Configuration
+"""e_commerce URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.0/topics/http/urls/
+    https://docs.djangoproject.com/en/4.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -15,10 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
 urlpatterns = [
     path('NoBoneZ/', admin.site.urls),
-    path("home/", include("portfolio.urls")),
-    path("", RedirectView.as_view(url="home/", permanent=True)),
+    path("main_store/", include("main_store.urls")),
+    path("", RedirectView.as_view(url="main_store/", permanent=True)),
+    path("accounts/", include('nucleus.urls')),
+
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+{% if page == "user_update_details" %}
+    <div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Firstname: </label>
+            {{form.first_name}}
+
+            <label>Middlename: </label>
+            {{form.middle_name}}
+
+            <label>Lastname: </label>
+            {{form.last_name}}
+
+            <label>Age: </label>
+            {{form.age}}
+
+            <label>Profile Picture: </label>
+            {{form.profile_picture}}
+
+            <label>Phone Number: </label>
+            {{form.phone_number}}
+
+            <input type="submit" value="Update">
+
+        </form>
+    </div>
+{% endif %}
+
+{% if page == "change_password" %}
+    <div class="change_password">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Old Password: </label>
+            {{form.old_password}}
+            <br>
+            <br>
+
+            <label>New Password: </label>
+            {{form.new_password1}}
+            <br>
+            <br>
+
+            <label>New Password Confirmation: </label>
+            {{form.new_password2}}
+            <br>
+            <br>
+
+            <input type="submit" value="Change Password">
+        </form>
+    </div>
+{% endif %}
+{% endblock %}

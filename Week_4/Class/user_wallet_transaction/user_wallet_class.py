@@ -41,7 +41,8 @@ class User:
             writer = csv.DictWriter(x, fieldnames=User.head_king)
             if len(User.get_data()) < 1:
                 writer.writeheader()
-            writer.writerow(self.field)
+            else:
+                writer.writerow(self.field)
 
         return "Registration Successful"
 
@@ -194,7 +195,8 @@ class Wallet(User):
             if wallet == x["wallet_ID"] and pin == x["pin"]:
                 print("valid details")
                 print(f"{x['balance']}, is your balance as at {datetime.datetime.now()}")
-            return "Error! Invalid details"
+            else:
+                return "Error! Invalid details"
 
 
 class Transaction(User):

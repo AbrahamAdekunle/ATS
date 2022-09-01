@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'nucleus.apps.NucleusConfig',
     "phonenumber_field",
-    "main_store.apps.MainStoreConfig"
+    "main_store.apps.MainStoreConfig",
+    "admin_overwatch.apps.AdminOverwatchConfig",
+    "crispy_forms",
+    'password_reset',
 ]
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "nucleus.context_processors.cart_items_count"
             ],
         },
     },
@@ -80,9 +86,14 @@ DATABASES = {
         "USER": "Django_ATS",
         "PASSWORD": "1234567890",
         'HOST': 'localhost',
-        'PORT': '5432'
-    }
+        'PORT': '5432',
+    },
+
+
 }
+
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -134,8 +145,8 @@ PHONENUMBER_DEFAULT_FORMAT = "INTERNATIONAL"
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "koderblvck@gmail.com"
-# EMAIL_HOST_PASSWORD =
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = 'bfc6100a74643b'
+EMAIL_HOST_PASSWORD = '72a0e2324945e5'
+EMAIL_PORT = '2525'

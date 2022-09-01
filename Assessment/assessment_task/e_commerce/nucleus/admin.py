@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import MyUserCreationForm
-from .models import User, Vendor
+from .models import User, Vendor, Inbox
 
 
 # Register your models here.
@@ -23,3 +23,4 @@ class MyUserAdmin(UserAdmin):
 
 admin.site.register(User, MyUserAdmin)
 admin.site.register(Vendor)
+admin.site.register(Inbox)

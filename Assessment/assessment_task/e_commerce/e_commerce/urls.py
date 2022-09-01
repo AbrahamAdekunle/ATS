@@ -24,6 +24,7 @@ urlpatterns = [
     path("main_store/", include("main_store.urls")),
     path("", RedirectView.as_view(url="main_store/", permanent=True)),
     path("accounts/", include('nucleus.urls')),
+    path("admin_overwatch/", include("admin_overwatch.urls")),
 
 ]
 

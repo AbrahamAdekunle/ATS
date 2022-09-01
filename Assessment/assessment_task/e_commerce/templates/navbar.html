@@ -1,4 +1,5 @@
 {% load static %}
+
 <style>
     *{
         margin: 0;
@@ -36,9 +37,11 @@
     .main_search_bar{
         width: 300px;
         height: 40px;
+        border:1px solid #1D39C4;
         border-radius:10px;
         margin-left:-100px;
         margin-top:20px;
+        padding:10px;
     }
 
 
@@ -65,6 +68,17 @@
         margin-top:10px;
         margin-left:90px;
     }
+
+    .cart_total{
+        border:1px solid black;
+        padding:5px;
+        border-radius:400000px;
+        text-decoration:none;
+        color:white;
+        background-color:black;
+
+    }
+
 
 </style>
 
@@ -95,8 +109,9 @@
 
     {% endif %}
 
-     <a class="cart" href="{% url 'main_store:order_summary' request.user.id %}">
-            <img src="{% static 'images/shopping-cart.png' %}"alt="My_logo" class="cart">
-            <span>{{request.user.ordereditem}}</span>
-        </a>
+
+         <a class="cart" href="{% url 'main_store:order_summary' %}">
+                <img src="{% static 'images/shopping-cart.png' %}"alt="My_logo" class="cart">
+                <sub class="cart_total">{{cart_total}}</sub>
+            </a>
 </div>

@@ -1,24 +1,35 @@
 from django.contrib import admin
 
-
-from .models import Item, OrderedItem, Category, Cart, SubCategory, Labels
+from .models import Product, OrderedProduct, Category, Cart, SubCategory, Labels, Feedback
 
 
 # Register your models here.
-class ItemAdmin(admin.ModelAdmin):
-    list_display = (Item.get_category, "name", "price", "vendor")
-    list_filter = ( "price", "vendor", 'name',)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = (Product.get_category, "name", "price", "vendor")
+    list_filter = ("price", "vendor", 'name',)
 
 
 class SubCategoryAdmin(admin.ModelAdmin):
-    list_display = ("name",'category' )
+    list_display = ("name", 'category')
     list_filter = ("category",)
 
 
+class OrderedProductAdmin(admin.ModelAdmin):
+    list_display = ("user", "ip_address","product")
 
-admin.site.register(Item, ItemAdmin)
-admin.site.register(OrderedItem)
+
+class CartAdmin(admin.ModelAdmin):
+    list_display = ("user", Cart.cart_number_of_items, "date_checked_out")
+
+
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ("user", "product", "topic", "rating")
+
+
+admin.site.register(Product, ProductAdmin)
+admin.site.register(OrderedProduct, OrderedProductAdmin)
 admin.site.register(Category)
-admin.site.register(Cart)
+admin.site.register(Cart, CartAdmin)
 admin.site.register(SubCategory, SubCategoryAdmin)
 admin.site.register(Labels)
+admin.site.register(Feedback, FeedbackAdmin)

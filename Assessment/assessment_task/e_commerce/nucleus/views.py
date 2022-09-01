@@ -386,6 +386,7 @@ def recover_password(request):
                 [email]
 
             )
+            print(email_body["message"])
             messages.success(request, "A password reset mail has been sent to your mail")
             return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
         except User.DoesNotExist or Exception as e:

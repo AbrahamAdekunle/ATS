@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}<title>{{user.username | title}}'s profile</title>{% endblock %}
+{% block title %}<title>{{request.user.username | title}}'s profile</title>{% endblock %}
 {% block content %}
 <style>
 
@@ -56,7 +56,8 @@
         <br>
         <br>
 
-        <h2>My Vilgax Account</h2>
+
+           <h2>My Vilgax Account</h2>
       <ul>
          <a href="{% url 'nucleus:user_all_orders' user.id%}"><li>Orders</li></a>
          <a href="{% url 'nucleus:user_inbox' user.id %}"><li>Inbox</li></a>
@@ -64,6 +65,8 @@
          <a href="{% url 'nucleus:user_wishlist' user.id %}"><li>WishList</li></a>
           <a href=""><li>Recently Viewed</li></a>
       </ul>
+
+      
 
 
       <h2>My Settings</h2>

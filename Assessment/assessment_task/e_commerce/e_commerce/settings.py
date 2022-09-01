@@ -89,11 +89,7 @@ DATABASES = {
         'PORT': '5432',
     },
 
-
 }
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -143,7 +139,6 @@ AUTH_USER_MODEL = "nucleus.User"
 PHONENUMBER_DB_FORMAT = "INTERNATIONAL"
 PHONENUMBER_DEFAULT_FORMAT = "INTERNATIONAL"
 
-
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_USE_TLS = True
 # EMAIL_HOST = 'smtp.mailtrap.io'
@@ -159,6 +154,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'koderblvck@gmail.com'
 EMAIL_HOST_PASSWORD = 'xagfwzvkkbgbelif'
 EMAIL_PORT = 465
-
 
 # xagfwzvkkbgbelif

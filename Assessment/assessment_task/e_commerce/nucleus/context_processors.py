@@ -6,7 +6,7 @@ def cart_items_count(request):
         try:
             selected_cart = Cart.active_objects.filter(user_id=request.user.id).first()
             cart_total = selected_cart.ordered_products.all().count()
-            return {"cart_total" : cart_total}
+            return {"cart_total": cart_total}
         except:
             return {"cart_total": 0}
     else:
@@ -15,4 +15,4 @@ def cart_items_count(request):
             cart_total = selected_cart.ordered_products.all().count()
             return {"cart_total": cart_total}
         except:
-            return {"cart_total": 0 }
+            return {"cart_total": 0}

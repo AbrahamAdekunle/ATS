@@ -19,12 +19,4 @@ class MyUserEditForm(UserChangeForm):
                    )
 
 
-# class UserRegistrationForm(forms.ModelForm):
-#     class Meta:
-#         model = User
-#         exclude = ("groups", "superuser_status", 'user_permissions', 'date_joined')
-#
-#         widgets = {
-#             "password": forms.PasswordInput(),
-#
-#         }
+

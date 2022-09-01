@@ -36,8 +36,6 @@ def index(request):
     categories_for_recommendation = []
     recommended_products_list = []
 
-
-
     categories = Category.objects.all()
 
     search = request.GET.get("search") if request.GET.get("search") is not None else ""
@@ -81,7 +79,7 @@ def add_to_cart(request, pk):
     if request.user.is_authenticated:
         marked_product = Product.objects.get(id=pk)
         ordered_product, created = OrderedProduct.not_moved_objects.get_or_create(user=request.user,
-                                                                               product=marked_product)
+                                                                                  product=marked_product)
         selected_cart = Cart.active_objects.filter(user=request.user).first()
 
         if selected_cart is not None:
@@ -149,7 +147,6 @@ def order_summary(request):
     #     return HttpResponseForbidden()
 
     selected_cart = Cart.active_objects.filter(user_id=request.user.id).first()
-
 
     try:
         user_wishlist = WishList.objects.get(user_id=request.user.id)
@@ -292,7 +289,7 @@ def product_details(request, pk):
     context = {
         "product": product,
         "feedback": feedback,
-        "rating": average_rating ,
+        "rating": average_rating,
         "recently_viewed_products": recently_viewed_products,
     }
 

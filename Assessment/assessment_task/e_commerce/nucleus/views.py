@@ -102,7 +102,6 @@ def user_sign_in(request):
                         selected_cart.ordered_products.add(good)
                         selected_cart.save()
 
-
                 selected_cart.save()
                 # address_cart.is_checked_out = True
                 address_cart.delete()
@@ -285,7 +284,7 @@ def user_review(request, pk):
             product = Product.active_objects.get(id=request.POST.get("product"))
             print(user.id)
             print(product.id)
-            reviewed_product = OrderedProduct.inactive_objects  .filter(user_id=user.id, product_id=product.id).first()
+            reviewed_product = OrderedProduct.inactive_objects.filter(user_id=user.id, product_id=product.id).first()
             reviewed_product.is_reviewed = True
             reviewed_product.save()
 
@@ -373,12 +372,12 @@ def recover_password(request):
             email_body = {
                 'token': token,
                 "subject": "Recover Password",
-                'message':f"Hi, {user.username} , kindly reset your password by clicking "
-                          f"the following link . http://{current_site}/accounts/reset_password/password-token/{uid}/{token} "
-                          f"to change your password",
+                'message': f"Hi, {user.username} , kindly reset your password by clicking "
+                           f"the following link . http://{current_site}/accounts/reset_password/password-token/{uid}/{token} "
+                           f"to change your password",
                 "recepient": email,
             }
-            #that send email func
+            # that send email func
             send_mail(
                 email_body["subject"],
                 email_body["message"],
@@ -394,13 +393,13 @@ def recover_password(request):
             messages.error(request, "User does not exist")
             return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
-    context ={
+    context = {
         'page': "recover_password",
     }
-    return render(request,"nucleus/signin_signup.html", context)
+    return render(request, "nucleus/signin_signup.html", context)
 
 
-def reset_password(request,uid,token):
+def reset_password(request, uid, token):
     if request.method == "POST":
         try:
             id_decode = urlsafe_base64_decode(uid)

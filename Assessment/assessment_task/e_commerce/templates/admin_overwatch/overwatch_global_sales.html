@@ -1,6 +1,6 @@
 {% extends "admin_overwatch/overwatch_base.html" %}
 
-
+{% block title %}<title>Global Sales</title>{% endblock %}
 {% block content %}
 <style>
   .global_sales table{
@@ -52,7 +52,7 @@
     </tr>
 
     {% empty %}
-    <p>No Sales Made Yet</p>
+    <tr><td colspan="7"><h2>No Sales Made Yet</h2></td></tr>
     {% endfor %}
 
     <tr>

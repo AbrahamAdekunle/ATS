@@ -251,7 +251,7 @@
             <div class="product">
                   <img src="{{product.picture_of_product_1.url}}" alt="{{product.name}}" class="product_image">
                   <h4>{{product.name | title}}</h4>
-                  <p>{{product.price}}</p>
+                  <p>#{{product.get_real_price}}</p>
 
                 <div class="cart_logo">
                     <a href="{% url 'main_store:add_to_cart' product.id %}"><img src="{% static 'images/add-to-cart.png' %}" alt="remove_from_cart" class=""></a>

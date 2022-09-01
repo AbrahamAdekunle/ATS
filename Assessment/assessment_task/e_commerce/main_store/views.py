@@ -269,6 +269,11 @@ def product_details(request, pk):
     for rating in feedback:
         rating_list.append(int(rating.rating))
 
+    try:
+        average_rating = fsum(rating_list) / len(rating_list)
+    except ZeroDivisionError:
+        average_rating = None
+
     recently_viewed_products = None
 
     if "recently_viewed" in request.session:
@@ -287,7 +292,7 @@ def product_details(request, pk):
     context = {
         "product": product,
         "feedback": feedback,
-        "rating": fsum(rating_list) / len(rating_list),
+        "rating": average_rating ,
         "recently_viewed_products": recently_viewed_products,
     }
 

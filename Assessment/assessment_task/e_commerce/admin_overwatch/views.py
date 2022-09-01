@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.views.generic import ListView
 
@@ -17,6 +17,9 @@ from .forms import ProductEditForm, CategoryEditForm, SubcategoryEditForm
 
 @login_required(login_url="admin_overwatch:overwatch_signin")
 def index(request):
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+
     sales = []
     categories = Category.objects.all()
 
@@ -25,7 +28,7 @@ def index(request):
     products = Product.active_objects.filter(
         Q(name__icontains=search) | Q(sub_category__category__name__icontains=search)
         # | Q(vendor__name_of_store=search) | Q(sub_category__icontains=search)
-        )
+    )
 
     checked_out_carts = Cart.inactive_objects.all()
 
@@ -43,6 +46,9 @@ def index(request):
 
 
 def overwatch_signin(request):
+    if request.user.is_authenticated:
+        logout(request)
+
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
@@ -58,13 +64,13 @@ def overwatch_signin(request):
             login(request, user)
             return HttpResponseRedirect(reverse("admin_overwatch:index"))
         messages.error(request, "Invalid details")
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
     context = {
         "page": "sign_in",
 
     }
     return render(request, "admin_overwatch/overwatch_forms.html", context)
-
 
 
 def overwatch_signout(request):
@@ -74,6 +80,9 @@ def overwatch_signout(request):
 
 @login_required(login_url="admin_overwatch:overwatch_signin")
 def overwatch_product_details(request, pk):
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+
     product_sales = []
     total_quantity = 0
     total_sold = 0
@@ -98,6 +107,9 @@ def overwatch_product_details(request, pk):
 
 @login_required(login_url="admin_overwatch:overwatch_signin")
 def edit_product(request, pk):
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+
     product = get_object_or_404(Product, id=pk)
     form = ProductEditForm(instance=product)
     page = "create_edit"
@@ -122,6 +134,9 @@ def edit_product(request, pk):
 
 @login_required(login_url="admin_overwatch:overwatch_signin")
 def create_product(request):
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+
     form = ProductEditForm()
     page = "create_edit"
 
@@ -144,6 +159,9 @@ def create_product(request):
 
 @login_required(login_url="admin_overwatch:overwatch_signin")
 def delete_product(request, pk):
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+
     product = Product.objects.get(id=pk)
     product.is_active = not product.is_active
     product.save()
@@ -153,6 +171,9 @@ def delete_product(request, pk):
 
 @login_required(login_url="admin_overwatch:overwatch_signin")
 def create_category(request):
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+
     page = "create_edit"
     form = CategoryEditForm()
 
@@ -175,6 +196,9 @@ def create_category(request):
 
 @login_required(login_url="admin_overwatch:overwatch_signin")
 def create_sub_category(request):
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+
     page = "create_edit"
     form = SubcategoryEditForm()
 
@@ -195,10 +219,13 @@ def create_sub_category(request):
     return render(request, "admin_overwatch/overwatch_forms.html", context)
 
 
-class DeletedProducts(LoginRequiredMixin, ListView):
+class DeletedProducts(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Product
     template_name = "admin_overwatch/overwatch_deleted_products.html"
     login_url = "admin_overwatch:overwatch_signin"
+
+    def test_func(self):
+        return self.request.user.is_staff
 
     def get_queryset(self):
         return Product.inactive_objects.all
@@ -211,6 +238,9 @@ class DeletedProducts(LoginRequiredMixin, ListView):
 
 @login_required(login_url="admin_overwatch:overwatch_signin")
 def global_sales(request):
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+
     sold_products = []
     total_quantity = 0
     total_amount = 0

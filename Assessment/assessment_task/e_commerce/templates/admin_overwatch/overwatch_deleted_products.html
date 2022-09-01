@@ -1,36 +1,34 @@
 {% extends "admin_overwatch/overwatch_base.html" %}
 
 {% load static %}
+{% block title %}<title>Deleted Products</title>{% endblock %}
 {% block content %}
 <style>
     .overwatch_deleted_products{
-        display:flex;
-        align-products:center;
-        justify-content:center;
+
     }
 
 
 
     .deleted_products{
-        display: grid;
-        width: 100%;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: auto;
-        row-gap: 30px;
-        column-gap: 30px;
+
+
     }
 
     .individual_deleted_products{
         border:1px solid black;
-        margin-top:200px;
+        margin:50px 1300px 50px 90px;
+        padding:20px;
     }
 
     .product_image{
-        max-width:100px;
+        width:80px;
+        height:80px;
     }
 
     .delete_logo img{
-        max-width:30px;
+       width:30px;
+        height:30px;
     }
 
 
@@ -47,7 +45,7 @@
 
 
                         <div class="delete_logo">
-                            <a href="{% url 'admin_overwatch:overwatch_delete_product' product.id %}"><img src="{% static 'images/trash.svg' %}" alt="un_delete_product" class=""></a>
+                            <a href="{% url 'admin_overwatch:overwatch_delete_product' product.id %}"><img src="{% static 'images/restore.png' %}" alt="un_delete_product" class=""></a>
                         </div>
             </div>
         {% empty %}

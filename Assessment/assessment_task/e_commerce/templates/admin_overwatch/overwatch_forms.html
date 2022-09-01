@@ -1,6 +1,8 @@
 {% extends "admin_overwatch/overwatch_base.html" %}
 {% load crispy_forms_tags %}
 
+
+{% block title %}<title>{{page}}'s page</title>{% endblock %}
 {% block content %}
 <style>
     .overwatch_forms{
@@ -24,6 +26,8 @@
 
                 <label>Password: </label>
                 <input type="password" name="password">
+                <br>
+                <br>
 
                 <input type="submit" value="sign in">
 
